@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Moch Mazidu Afhami</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        :root { 
+            --primary: #3d3f3c; /* Charcoal Earth - Diambil dari kaos Mas Hami */
+            --accent: #dd9046; /* Soft Sunset Gold - Diambil dari cahaya senja di pantai */
+            --bg: #f2ede4;      /* Warm Sand - Diambil dari pasir pantai yang hangat */
+            --card-bg: #ffffff;
+            --text-main: #4a4d49;
+            --text-muted: #797e77;
+            --border-color: #e5dfd5;
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            padding: 15px; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+        }
+
+        /* Header Profil dengan Slot Foto di Atas Container */
+        .header-profile {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px 16px 0 0; 
+            border-top: 8px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(61,63,60,0.05);
+            display: flex;
+            align-items: center; 
+            gap: 20px; 
+        }
+
+        /* Wadah Foto Profil Bundar */
+        .profile-photo-wrapper {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(61, 63, 60, 0.15);
+            flex-shrink: 0; 
+        }
+
+        .profile-photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+
+        .profile-text {
+            flex-grow: 1;
+        }
+        
+        .slider-container {
+            width: 100%; 
+            max-width: 600px; 
+            height: 60vh; 
+            background: var(--card-bg); 
+            border-radius: 0 0 16px 16px; 
+            box-shadow: 0 10px 25px rgba(61,63,60,0.08); 
+            overflow: hidden;
+            position: relative; 
+            display: flex; 
+            flex-direction: column;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Navigasi Atas */
+        .nav-bar { 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 5px; 
+            background: #fcfbfa; 
+            border-bottom: 1px solid var(--border-color); 
+            z-index: 10;
+        }
+        
+        .nav-btn { 
+            font-size: 11px; 
+            font-weight: 700; 
+            background: none; 
+            border: none; 
+            color: var(--text-muted); 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn.active { 
+            color: #fff; 
+            background-color: var(--primary); 
+        }
+
+        /* Area Slider */
+        .slides-track { 
+            display: flex; 
+            width: 300%; 
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            flex-grow: 1; 
+            height: 100%;
+        }
+        
+        .slide { 
+            width: 33.33%; 
+            padding: 25px; 
+            flex-shrink: 0; 
+            overflow-y: auto; 
+            height: 100%;
+            padding-bottom: 40px;
+        }
+        
+        /* Kustomisasi Scrollbar */
+        .slide::-webkit-scrollbar { width: 5px; }
+        .slide::-webkit-scrollbar-track { background: transparent; }
+        .slide::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        /* Pagination Dots Bawah */
+        .pagination { 
+            display: flex; 
+            justify-content: center; 
+            padding: 15px; 
+            gap: 10px; 
+            background: white; 
+            border-top: 1px solid var(--border-color);
+            z-index: 10;
+        }
+        
+        .dot { 
+            width: 8px; 
+            height: 8px; 
+            border-radius: 50%; 
+            background: #e5dfd5; 
+            transition: 0.3s; 
+            cursor: pointer;
+        }
+        
+        .dot.active { 
+            background: var(--accent); 
+            transform: scale(1.3);
+        }
+
+        /* Tipografi Konten */
+        h1 { 
+            font-size: 20px; 
+            color: var(--primary); 
+            margin-bottom: 4px; 
+            line-height: 1.2; 
+            font-weight: 800;
+        }
+        
+        .subtitle { 
+            font-size: 11px; 
+            color: var(--text-main); 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            line-height: 1.4; 
+        }
+        
+        .contact { 
+            font-size: 10px; 
+            color: var(--accent); 
+            font-weight: 700; 
+            line-height: 1.5;
+        }
+        
+        h2 { 
+            font-size: 16px; 
+            color: var(--primary); 
+            border-bottom: 2px solid var(--accent); 
+            margin-bottom: 15px; 
+            display: inline-block; 
+            padding-bottom: 3px;
+        }
+        
+        p { 
+            font-size: 12px; 
+            line-height: 1.7; 
+            text-align: justify; 
+            margin-bottom: 15px; 
+            color: var(--text-main); 
+        }
+        
+        /* Job & Accordion Styling */
+        .job-block { margin-bottom: 15px; background: #fcfbfa; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+        .job-header { font-weight: 700; font-size: 13px; padding: 12px 12px 5px 12px; display: flex; justify-content: space-between; color: var(--primary); align-items: center; }
+        .job-header span:last-child { font-size: 11px; color: #fff; background: var(--primary); padding: 3px 8px; border-radius: 12px; white-space: nowrap; margin-left: 10px; }
+        .bab-btn { width: 100%; padding: 8px 12px 12px 12px; background: transparent; border: none; text-align: left; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--accent); display: flex; justify-content: space-between; align-items: center; }
+        .bab-btn::after { content: '+'; font-size: 16px; transition: transform 0.3s; }
+        .bab-btn.active::after { transform: rotate(45deg); }
+        .sub-bab-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: #fff; font-size: 12px; color: var(--text-main); }
+        .sub-bab-content-inner { padding: 12px 15px; border-top: 1px solid var(--border-color); }
+        ul { padding-left: 18px; margin-bottom: 10px; }
+        li { margin-bottom: 8px; text-align: justify; line-height: 1.6; }
+        strong { color: var(--primary); }
+        .skills-list { font-size: 12px; color: var(--text-main); line-height: 1.6; padding-left: 18px; margin-bottom: 20px; }
+        .skills-list li { margin-bottom: 12px; text-align: justify; }
+
+        @media (max-width: 480px) {
+            .header-profile {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 15px;
+            }
+            .profile-photo-wrapper {
+                width: 90px;
+                height: 90px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-profile">
+    <div class="profile-photo-wrapper">
+        <!-- TIPS: Ganti src di bawah dengan file foto senja Mas Hami ini, pasti serasi banget! -->
+        <img src="+62 851-7839-1986 20260626_141733.jpg" alt="Foto Profil Moch Mazidu Afhami">
+    </div>
+    <div class="profile-text">
+        <h1>MOCH MAZIDU AFHAMI</h1>
+        <div class="subtitle">Freelance Desainer Grafis & Editor Konten | AI Prompt Engineer | Spesialis Pemasaran Digital | Teknisi IT & Gadget</div>
+        <div class="contact">
+            📍 Bunutwetan Kec. Pakis, Kab. Malang, Jawa Timur<br>
+            📞 +62 851-7839-1986 | 📧 maziduafhami@gmail.com
+        </div>
+    </div>
+</div>
+
+<div class="slider-container" id="sliderContainer">
+    <div class="nav-bar" id="navBar">
+        <button class="nav-btn active" onclick="goTo(0)">PROFIL</button>
+        <button class="nav-btn" onclick="goTo(1)">PENGALAMAN</button>
+        <button class="nav-btn" onclick="goTo(2)">KEAHLIAN</button>
+    </div>
+
+    <div class="slides-track" id="slidesTrack">
+        
+        <!-- Slide 1: Profil -->
+        <div class="slide">
+            <p>Profesional multidimensi dengan rekam jejak yang kaya di industri konstruksi, manufaktur, seni kriya, lanskap, hingga ranah kreatif teknologi digital. Sebagai seorang freelancer yang mandiri, saya memiliki keahlian terintegrasi dalam desain grafis, penyuntingan video, rekayasa instruksi AI (AI Prompt Engineering), pemasaran digital, serta pemeliharaan infrastruktur IT modern.</p>
+            <p>Kompetensi teknis saya mencakup instalasi OS lintas platform (Windows & Linux), kustomisasi Android (rooting), konfigurasi jaringan/CCTV, hingga implementasi teknologi Remote Desktop dan sistem berbasis IoT (Internet of Things).</p>
+            <p>Berbekal pengalaman panjang dalam bidang pertukangan kayu, kriya kaca artistik (patri & inlay), konstruksi fisik, dan penata taman, saya membawa standar ketelitian tinggi ke dalam dunia desain dan evaluasi konten. Sebagai penulis novel otodidak, saya memiliki pemahaman mendalam tentang struktur bahasa, menjadikan saya praktisi yang kompeten dalam mengoptimalkan sistem Large Language Models (LLM), analisis data, serta penyusunan prompt AI yang efektif.</p>
+            <p>Saya adalah sosok tangguh yang mandiri, mampu menaklukkan berbagai bidang—dari kalkulasi struktur fisik, pengerjaan seni kriya bernilai tinggi, hingga mengendalikan kecerdasan buatan untuk hasil visual dan teks yang kompleks.</p>
+        </div>
+
+        <!-- Slide 2: Experience -->
+        <div class="slide">     
+            <div class="job-block">
+                <div class="job-header"><span>AirFarm</span><span>2024 – Skrg</span></div>
+                <button class="bab-btn active" onclick="toggle(this)">Freelance Desainer, Editor & Lanskap</button>
+                <div class="sub-bab-content" style="max-height: 1000px;"> 
+                    <div class="sub-bab-content-inner">
+                        <ul>
+                            <li><strong>Desain Grafis & Konten Visual:</strong> Memproduksi materi komunikasi visual yang persuasif seperti pamflet, undangan, brosur, dan aset media sosial. Mengelola alur produksi video dari raw footage menjadi produk visual yang estetis.</li>
+                            <li><strong>AI Prompting & Evaluasi Data:</strong> Merancang rekayasa instruksi (prompting) yang efektif pada berbagai platform AI untuk kebutuhan generasi konten, serta melakukan fact-checking dan deteksi halusinasi data guna memastikan akurasi teks tingkat tinggi.</li>
+                            <li><strong>Pengelola Lanskap:</strong> Mengeksekusi proyek penataan elemen hijau secara freelance, mencakup instalasi rumput, pemilihan estetika bunga, serta integrasi pemeliharaan taman secara presisi.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-block">
+                <div class="job-header"><span>BatuVillaku</span><span>Nov 2023 – 2024</span></div>
+                <button class="bab-btn" onclick="toggle(this)">Spesialis Pemasaran Digital</button>
+                <div class="sub-bab-content">
+                    <div class="sub-bab-content-inner">
+                        <ul>
+                            <li><strong>Strategi Konten & Pemasaran:</strong> Merancang strategi konten kreatif untuk memaksimalkan brand awareness serta meningkatkan tingkat konversi dan keterlibatan (engagement) audiens.</li>
+                            <li><strong>Optimasi Digital:</strong> Menerapkan strategi SEO/SEM dan perangkat analitik untuk memantau performa kampanye.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-block">
+                <div class="job-header"><span>Proyek / Otodidak</span><span>Berbasis Proyek</span></div>
+                <button class="bab-btn" onclick="toggle(this)">Penulis Kreatif & Editor Narasi</button>
+                <div class="sub-bab-content">
+                    <div class="sub-bab-content-inner">
+                        <ul>
+                            <li><strong>Pengembangan Naratif:</strong> Menyusun struktur cerita kompleks dengan fokus pada pengembangan karakter dinamis dan tata bahasa yang persuasif.</li>
+                            <li><strong>Analisis Kualitas Bahasa:</strong> Mengevaluasi teks untuk membedakan kualitas tulisan manusia dengan teks hasil AI demi menjaga keaslian narasi.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-block">
+                <div class="job-header"><span>Usaha Jaya Elektronik</span><span>2022 – 2023</span></div>
+                <button class="bab-btn" onclick="toggle(this)">Layanan & Teknisi IT / Gadget</button>
+                <div class="sub-bab-content">
+                    <div class="sub-bab-content-inner">
+                        <ul>
+                            <li><strong>Infrastruktur Modern, IoT & Remote:</strong> Mengonfigurasi sistem Remote Desktop untuk pemeliharaan jarak jauh, serta mengintegrasikan perangkat keras berbasis IoT (Internet of Things) untuk otomatisasi.</li>
+                            <li><strong>Pemeliharaan Sistem & Jaringan:</strong> Instalasi ulang OS (Windows & Linux), troubleshooting perangkat keras, perakitan PC, serta konfigurasi router dan sistem CCTV.</li>
+                            <li><strong>Perbaikan & Kustomisasi Gadget:</strong> Servis hardware handphone Android, flashing, hingga rooting sistem.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-block">
+                <div class="job-header"><span>Chamim Bevel Glass</span><span>2018 – 2022</span></div>
+                <button class="bab-btn" onclick="toggle(this)">Spesialis Seni Kaca Artistik</button>
+                <div class="sub-bab-content">
+                    <div class="sub-bab-content-inner">
+                        <ul>
+                            <li><strong>Kriya Kaca Artistik:</strong> Ahli dalam pembuatan dan perakitan kaca patri (stained glass) serta kaca inlay yang menuntut cita rasa seni tinggi, ketepatan pola geometris, dan teknik penyambungan yang rumit.</li>
+                            <li><strong>Konstruksi Fungsional:</strong> Merancang dan merakit akuarium serta etalase kaca berskala kustom dengan presisi struktural tinggi, kerapian sealant, dan ketahanan beban optimal.</li>
+                            <li><strong>Kontrol Kualitas:</strong> Menerapkan ketelitian ekstrem (extreme attention to detail) dalam teknik pemotongan dan pemolesan akhir demi memastikan nilai estetika dan standar keamanan produk.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-block">
+                <div class="job-header"><span>Bima Sakti Meubel</span><span>2013 – 2017</span></div>
+                <button class="bab-btn" onclick="toggle(this)">Produksi & Operasional Konstruksi</button>
+                <div class="sub-bab-content">
+                    <div class="sub-bab-content-inner">
+                        <ul>
+                            <li><strong>Keahlian Konstruksi & Pertukangan:</strong> Menguasai teknik perkayuan dan dasar konstruksi fisik, termasuk pengolahan material kayu menjadi furnitur (kursi, meja, bufet).</li>
+                            <li><strong>Manajemen Teknis:</strong> Operasional mesin gerinda, teknik finishing meubel, dan ketahanan fisik di lingkungan operasional yang dinamis.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Skill & Bahasa -->
+        <div class="slide">
+            <ul class="skills-list">
+                <li><strong>Teknis, Konstruksi & Kriya:</strong> Seni Kaca Patri & Inlay, Teknik Pertukangan & Konstruksi Fisik, Pembuatan Furnitur Woodworking, Penataan Lanskap (Taman), Pembuatan Akuarium/Etalase Kaca, Pengoperasian Mesin Gerinda.</li>
+                <li><strong>AI & Evaluasi Bahasa:</strong> AI Prompt Engineering, Tone & Fluency Analysis, Pemeriksaan Fakta, Deteksi Halusinasi AI, Manajemen LLM.</li>
+                <li><strong>IT, Infrastruktur & IoT:</strong> Remote Desktop Management, IoT Setup, Instalasi OS (Windows & Linux), Servis HP Android (Rooting/Flashing), Konfigurasi Router, Teknisi CCTV, Perakitan PC.</li>
+                <li><strong>Desain & Konten:</strong> Desain Grafis (Pamflet, Undangan, Brosur), Video Editing, Content Curation, Storytelling, Copywriting.</li>
+                <li><strong>Pemasaran Digital:</strong> SEO/SEM, Meta Business Suite, Google Analytics.</li>
+            </ul>
+
+            <h2>Bahasa</h2>
+            <ul class="skills-list">
+                <li><strong>Jawa:</strong> Penutur Asli (Ahli)</li>
+                <li><strong>Indonesia:</strong> Penutur Asli (Lancar)</li>
+                <li><strong>Inggris:</strong> Kecakapan Kerja Profesional (Lumayan)</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="pagination" id="pagination">
+        <span class="dot active" onclick="goTo(0)"></span>
+        <span class="dot" onclick="goTo(1)"></span>
+        <span class="dot" onclick="goTo(2)"></span>
+    </div>
+</div>
+
+<script>
+    let index = 0;
+    const track = document.getElementById('slidesTrack');
+    const dots = document.querySelectorAll('.dot');
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const slides = document.querySelectorAll('.slide');
+
+    function goTo(n) {
+        index = n;
+        track.style.transform = `translateX(-${index * 33.33}%)`;
+        updateUI();
+        slides[index].scrollTop = 0;
+    }
+
+    function updateUI() {
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        navBtns.forEach((b, i) => b.classList.toggle('active', i === index));
+    }
+
+    let startX = 0;
+    let isSwiping = false;
+    const sliderContainer = document.getElementById('sliderContainer');
+    
+    sliderContainer.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        isSwiping = true;
+    }, {passive: true});
+
+    sliderContainer.addEventListener('touchmove', e => {
+        if (!isSwiping) return;
+    }, {passive: true});
+
+    sliderContainer.addEventListener('touchend', e => {
+        if (!isSwiping) return;
+        let diff = e.changedTouches[0].clientX - startX;
+        
+        if (Math.abs(diff) > 50) { 
+            if (diff > 0 && index > 0) index--;
+            else if (diff < 0 && index < 2) index++;
+            goTo(index);
+        }
+        isSwiping = false;
+    });
+
+    function toggle(el) {
+        el.classList.toggle("active");
+        let content = el.nextElementSibling;
+        
+        if (content.style.maxHeight && content.style.maxHeight !== "0px") {
+            content.style.maxHeight = "0px";
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const accordions = document.querySelectorAll('.sub-bab-content');
+        accordions.forEach(acc => {
+            if (!acc.style.maxHeight || acc.style.maxHeight === "0px") {
+                acc.style.maxHeight = "0px";
+            }
+        });
+    });
+</script>
+</body>
+</html>
